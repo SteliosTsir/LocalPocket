@@ -1,23 +1,24 @@
-# Point this to where you cloned the SDK
-SDK_PATH = $(HOME)/LocalPocket
-CC = $(SDK_PATH)/bin/arm-obreey-linux-gnueabi-gcc
+SDK_BASE = /home/stelios/pbsdk/SDK-B288/usr
+TARGET = arm-obreey-linux-gnueabi
+SYSROOT = $(SDK_BASE)/$(TARGET)/sysroot
 
-# Tell the compiler where to find headers and libraries
-CFLAGS = -I./include -I$(SDK_PATH)/include -Wall -O2
-LDFLAGS = -L$(SDK_PATH)/lib -linkview -pthread
+CC = $(SDK_BASE)/bin/$(TARGET)-clang
 
-# Your source files
-SOURCES = src/main.c src/mongoose.c src/cJSON.c
+# We must keep the freetype2 path so inkview.h can open
+CFLAGS = -I./include -I$(SYSROOT)/usr/include -I$(SYSROOT)/usr/include/freetype2 -Wall -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -mfloat-abi=softfp
+LDFLAGS = -L$(SYSROOT)/usr/local/lib -L$(SYSROOT)/usr/lib -linkview
+
+SOURCES = src/main.c
 OBJECTS = $(SOURCES:.c=.o)
-TARGET = LocalSendPB.app
+APP_NAME = LocalSendPB.app
 
-all: $(TARGET)
+all: $(APP_NAME)
 
-$(TARGET): $(OBJECTS)
+$(APP_NAME): $(OBJECTS)
 	$(CC) $(OBJECTS) -o $@ $(LDFLAGS)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(OBJECTS) $(TARGET)
+	rm -f $(OBJECTS) $(APP_NAME)

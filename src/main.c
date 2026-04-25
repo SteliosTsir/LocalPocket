@@ -1,28 +1,27 @@
 #include "inkview.h"
 
-int main(void) {
-    // Initialize the PocketBook UI
-    InkViewMain(NULL);
-    OpenScreen();
-    ClearScreen();
-    SetFont(GetDefaultFont(), 30);
-    
-    // Draw some text
-    DrawTextRect(0, 200, ScreenWidth(), 50, "LocalSend PocketBook", ALIGN_CENTER);
-    DrawTextRect(0, 300, ScreenWidth(), 50, "Press 'Back' to exit.", ALIGN_CENTER);
-    
-    // Push the changes to the e-ink display
-    FullUpdate();
-
-    // Wait until the user presses a button
-    int running = 1;
-    while (running) {
-        int event = GetEvent();
-        if (event == EVT_KEYPRESS && GetEventData() == KEY_PREV) {
-            running = 0;
-        }
+static int main_handler(int event, int a, int b) {
+    if (event == EVT_INIT) {
+        // Just clear the screen to white
+        ClearScreen();
+        
+        // Draw a simple black rectangle instead of text first
+        // (This proves the UI engine is working without needing font files)
+        FillArea(200, 200, 400, 400, BLACK);
+        
+        // Push to e-ink
+        FullUpdate();
     }
 
-    CloseApp();
+    // Exit on any touch or button
+    if (event == EVT_KEYPRESS || event == EVT_POINTERUP) {
+        CloseApp();
+    }
+
+    return 0;
+}
+
+int main (int argc, char *argv[]) {
+    InkViewMain(main_handler);
     return 0;
 }
