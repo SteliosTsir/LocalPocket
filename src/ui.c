@@ -25,7 +25,7 @@ void draw_ui() {
 
     if (app_state == STATE_WAITING) {
         DrawTextRect(0, 250, ScreenWidth(), 60, "Waiting for files...", ALIGN_CENTER);
-        DrawTextRect(0, 320, ScreenWidth(), 60, "Device Name: Sense-Eink", ALIGN_CENTER);
+        DrawTextRect(0, 320, ScreenWidth(), 60, "Device Name: PB-Sense", ALIGN_CENTER);
     } 
     else if (app_state == STATE_RECEIVING) {
         char msg[300];
