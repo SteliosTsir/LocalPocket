@@ -24,7 +24,7 @@ Currently the only way to get the .app file for your PocketBook is to compile th
 
 1. Clone this repository:
    ```bash
-   git clone [https://github.com/SteliosTsir/LocalPocket.git](https://github.com/SteliosTsir/LocalPocket.git)
+   git clone https://github.com/SteliosTsir/LocalPocket.git
    cd LocalPocket
    ```
 2. Ensure your `Makefile` points to your correct SDK path:
