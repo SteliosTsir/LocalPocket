@@ -6,7 +6,7 @@ CC = $(SDK_BASE)/bin/$(TARGET)-clang
 # Add the new src files here!
 SOURCES = src/main.c src/network.c src/ui.c
 OBJECTS = $(SOURCES:.c=.o)
-APP_NAME = LocalSendPB.app
+APP_NAME = LocalPocket.app
 
 CFLAGS = -I./include -I$(SYSROOT)/usr/include -I$(SYSROOT)/usr/include/freetype2 -Wall -O2 -march=armv7-a -mfloat-abi=softfp
 LDFLAGS = -L$(SYSROOT)/usr/local/lib -L$(SYSROOT)/usr/lib -linkview -lm
